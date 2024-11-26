@@ -23,5 +23,5 @@ rootProject.name = "ProductApp"
 include(":app")
 include(":core")
 include(":data")
-include(":domain")
+include(":network")
 include(":presentation")

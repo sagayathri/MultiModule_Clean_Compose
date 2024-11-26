@@ -1,6 +1,8 @@
 [versions]
 agp = "8.7.2"
 kotlin = "1.9.24"
+compileSdk = "34"
+minSdk = "24"
 coreKtx = "1.15.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
@@ -10,24 +12,69 @@ material = "1.12.0"
 lifecycleRuntimeKtx = "2.8.7"
 activityCompose = "1.9.3"
 composeBom = "2024.04.01"
+androidCore = "1.12.0"
+junitCore = "4.13.2"
+junitTest = "1.1.5"
+espresso = "3.5.1"
+hilt = "2.47"
+coroutinesCore = "1.7.2"
+okhttp = "4.10.0"
+retrofit = "2.9.0"
+paging = "3.2.1"
+composeActivity = "1.8.2"
+compose = "2.7.0"
+composeHiltNav = "1.2.0"
+viewPager = "1.0.0"
+flexBox = "3.0.0"
+shimmer = "0.5.0"
+lottie = "5.2.0"
+glide = "4.15.1"
+swipeToRefresh = "1.1.0"
+composeGlide = "1.0.0-alpha.1"
+navigation = "2.7.6"
+mockkAndroid = "1.12.3"
+mockkCore = "1.13.2"
+hiltTesting = "2.44"
+rxJava = "2.1.1"
+composeMaterial = "1.2.0"
+fragmenKtx = "1.6.2"
 
 [libraries]
-androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
-junit = { group = "junit", name = "junit", version.ref = "junit" }
-androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
-androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
-androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
-material = { group = "com.google.android.material", name = "material", version.ref = "material" }
-androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
-androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
-androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
-androidx-ui = { group = "androidx.compose.ui", name = "ui" }
-androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
-androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
-androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
-androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
-androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
-androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
+appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
+android-core = { module = "androidx.core:core-ktx", version.ref = "androidCore" }
+junit-core = { module = "junit:junit", version.ref = "junitCore" }
+junit-test = { module = "androidx.test.ext:junit", version.ref = "junitTest" }
+espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso" }
+hilt-core = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
+coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutinesCore" }
+hilt-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
+okhttp-logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp" }
+retrofit-core = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+retrofit-gson-converter = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
+lifecycle-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
+compose-activity = { module = "androidx.activity:activity-compose", version.ref = "composeActivity" }
+compose-lifecycle = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "compose" }
+compose-view-model = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "compose" }
+compose-hilt-navigation = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "composeHiltNav" }
+compose-glide = { module = "com.github.bumptech.glide:compose", version.ref = "composeGlide" }
+view-pager = { module = "androidx.viewpager2:viewpager2", version.ref = "viewPager" }
+flex-box = { module = "com.google.android.flexbox:flexbox", version.ref = "flexBox" }
+shimmer = { module = "com.facebook.shimmer:shimmer", version.ref = "shimmer" }
+lottie = { module = "com.airbnb.android:lottie", version.ref = "lottie" }
+glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
+swipe-to-refresh = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version.ref = "swipeToRefresh" }
+navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigation" }
+navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigation" }
+mockk-android = { module = "io.mockk:mockk-android", version.ref = "mockkAndroid" }
+mockk-core = { module = "io.mockk:mockk", version.ref = "mockkCore" }
+hilt-test = { module = "com.google.dagger:hilt-android-testing", version.ref = "hiltTesting" }
+rx-java-core = { module = "com.squareup.retrofit2:adapter-rxjava2", version.ref = "retrofit" }
+rx-java-android = { module = "io.reactivex.rxjava2:rxandroid", version.ref = "rxJava" }
+compose-ui-graphics = { module = "androidx.compose.ui:ui-graphics" }
+paging = { module = "androidx.paging:paging-runtime", version.ref = "paging" }
+compose-ui-material = { module = "androidx.compose.material3:material3", version.ref = "composeMaterial" }
+fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "fragmenKtx" }
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

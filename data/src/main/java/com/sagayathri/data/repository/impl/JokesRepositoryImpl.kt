@@ -2,9 +2,7 @@ package com.sagayathri.data.repository.impl
 
 import com.sagayathri.core.di.ApplicationScope
 import com.sagayathri.core.di.DefaultDispatcher
-import com.sagayathri.data.async.AsyncEvents
 import com.sagayathri.data.async.Result
-import com.sagayathri.data.model.JokeDomain
 import com.sagayathri.data.model.JokesDomain
 import com.sagayathri.data.repository.JokesRepository
 import com.sagayathri.network.api.ApiService

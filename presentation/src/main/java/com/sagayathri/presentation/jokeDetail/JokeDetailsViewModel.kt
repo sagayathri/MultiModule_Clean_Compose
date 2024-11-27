@@ -16,7 +16,7 @@ class JokeDetailsViewModel @Inject constructor(
     private val repository: JokesRepository
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow(
+    private var _state = MutableStateFlow(
         getInitialState(),
     )
     val state: StateFlow<JokeItemUIState> =
@@ -25,6 +25,7 @@ class JokeDetailsViewModel @Inject constructor(
     private fun getInitialState() = JokeItemUIState(
         item = null,
         isLoading = false,
+        isLoaded = false,
     )
 
     fun fetchJokeByID(jokeId: Int){
@@ -32,8 +33,16 @@ class JokeDetailsViewModel @Inject constructor(
         viewModelScope.launch {
             repository.getJokeByID(jokeId = jokeId).collect{ result ->
                 when(result){
-                    is Result.Success ->_state.value = _state.value.copy(item = result.data, isLoading = false)
-                    else -> _state.value = _state.value.copy(item = null, isLoading = false)
+                    is Result.Success ->_state.value = _state.value.copy(
+                        item = result.data,
+                        isLoading = false,
+                        isLoaded = true
+                    )
+                    else -> _state.value = _state.value.copy(
+                        item = null,
+                        isLoading = false,
+                        isLoaded = true
+                    )
                 }
             }
         }

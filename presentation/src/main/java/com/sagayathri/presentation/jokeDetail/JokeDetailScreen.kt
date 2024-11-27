@@ -1,11 +1,15 @@
 package com.sagayathri.presentation.jokeDetail
 
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -14,7 +18,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.Blue
+import androidx.compose.ui.graphics.Color.Companion.Gray
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
@@ -48,21 +57,34 @@ fun JokeDetailScreen(
             )
         },
         content = { paddingValues ->
-            Box(modifier = Modifier.padding(paddingValues)) {
+            Box(modifier = Modifier
+                .padding(paddingValues)
+                .fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
                 Card(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(8.dp)
+                        .height(200.dp)
+                        .padding(start = 30.dp, bottom = 50.dp, end = 30.dp)
+                        .border(
+                            width = 2.dp,
+                            color = Blue,
+                            shape = RoundedCornerShape(16.dp)
+                        )
+                        .shadow(
+                            elevation = 4.dp,
+                            shape = RoundedCornerShape(16.dp),
+                            ambientColor = Gray,
+                        ),
                 ) {
                     Column(
-                        modifier = Modifier
-                            .padding(8.dp)
+                        modifier = Modifier.padding(8.dp)
                     ) {
                         if (state.item != null) {
                             val joke = state.item!!
-                           DetailsContent(joke)
-                        }
-                        else {
+                            DetailsContent(joke)
+                        } else {
                             ErrorContent()
                         }
                     }
@@ -72,8 +94,10 @@ fun JokeDetailScreen(
     )
 
     LaunchedEffect(state) {
-        coroutineScope.launch {
-            viewModel.fetchJokeByID(jokeId = jokeId)
+        if (!state.isLoaded) {
+            coroutineScope.launch {
+                viewModel.fetchJokeByID(jokeId = jokeId)
+            }
         }
     }
 }
@@ -85,15 +109,21 @@ fun DetailsContent(
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(8.dp),
-        modifier = modifier.padding(horizontal = 16.dp),
+        modifier = modifier
+            .padding(horizontal = 16.dp),
     ) {
         Text(
-            text = stringResource(R.string.question_text, joke.setup),
-            style = MaterialTheme.typography.titleLarge
+            text = joke.setup,
+            style = MaterialTheme.typography.titleMedium,
+            modifier = Modifier.padding(top = 4.dp),
+        )
+        Spacer(
+            modifier = Modifier.padding(16.dp)
         )
         Text(
-            text = stringResource(R.string.answer_test, joke.punchline),
-            style = MaterialTheme.typography.bodyLarge
+            text = joke.punchline,
+            style = MaterialTheme.typography.bodyLarge,
+            modifier = Modifier.padding(bottom = 4.dp),
         )
     }
 }
@@ -121,7 +151,6 @@ fun JokeDetailPreview() {
     MaterialTheme {
         Column {
             DetailsContent(joke = joke)
-
             Spacer(modifier = Modifier.padding())
             ErrorContent()
         }

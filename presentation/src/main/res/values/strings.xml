@@ -3,8 +3,7 @@
 
     <string name="title">Jokes</string>
     <string name="cont_desc_back_arrow">back arrow</string>
+    <string name="cont_desc_show_answer">back arrow</string>
 
-    <string name="question_text">Question: %s</string>
-    <string name="answer_test">Punch Line: %s</string>
     <string name="error">Something went wrong</string>
 </resources>

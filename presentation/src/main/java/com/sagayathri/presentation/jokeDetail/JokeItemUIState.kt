@@ -5,4 +5,5 @@ import com.sagayathri.data.model.Joke
 data class JokeItemUIState(
     val item: Joke? = null,
     val isLoading: Boolean = false,
+    val isLoaded: Boolean = false,
 )

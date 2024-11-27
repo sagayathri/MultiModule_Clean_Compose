@@ -1,5 +1,6 @@
 package com.sagayathri.presentation.components
 
+import android.R.attr.text
 import androidx.compose.foundation.layout.absoluteOffset
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
@@ -31,9 +32,9 @@ fun CustomToolbar(
             Text(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .absoluteOffset(x = if (showBackButton) (-20).dp else 0.dp),
+                    .absoluteOffset(x = if (showBackButton) (10).dp else 0.dp),
                 text = title,
-                style = MaterialTheme.typography.headlineLarge
+                style = MaterialTheme.typography.headlineSmall
             )
         },
         navigationIcon = {

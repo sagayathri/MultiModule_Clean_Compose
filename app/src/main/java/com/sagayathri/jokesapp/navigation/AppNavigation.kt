@@ -20,7 +20,7 @@ fun AppNavigation() {
             route = NavigationScreen.JokeItemByID.route,
             arguments = listOf(navArgument(JOKE_ID) {
                 defaultValue = 0
-                type = NavType.StringType
+                type = NavType.IntType
             })
         ) {  navBackStackEntry ->
             val jokeId = navBackStackEntry.arguments?.getInt(JOKE_ID)

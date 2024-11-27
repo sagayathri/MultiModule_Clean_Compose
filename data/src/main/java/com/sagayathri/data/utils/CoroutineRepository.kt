@@ -7,7 +7,7 @@ import java.io.IOException
 import java.net.UnknownHostException
 
 abstract class CoroutineRepository {
-    suspend fun <T: ResponseModel> handleAPICall(
+    suspend fun <T> handleAPICall(
         runBlock: suspend () -> Response<T>
     ): ApiResponse<T> {
         return try {
@@ -18,7 +18,7 @@ abstract class CoroutineRepository {
         }
     }
 
-    private fun <T : ResponseModel> Response<T>.handleAPIResponse(): ApiResponse<T> {
+    private fun <T> Response<T>.handleAPIResponse(): ApiResponse<T> {
         val responseBody = body() as T
         if (isSuccess()) {
             return ApiResponse.Success(responseBody)
@@ -28,5 +28,5 @@ abstract class CoroutineRepository {
         )
     }
 
-    private fun <T : ResponseModel> Response<T>.isSuccess(): Boolean = isSuccessful
+    private fun <T> Response<T>.isSuccess(): Boolean = isSuccessful
 }

@@ -25,10 +25,6 @@ class NetworkModule {
         return BuildConfig.BASE_URL
     }
 
-    @Singleton
-    @Provides
-    fun provideOkHttpClient(builder: OkHttpClient.Builder): OkHttpClient = builder.build()
-
     @Provides
     fun provideApiService(retrofit: Retrofit): ApiService {
         return retrofit.create(ApiService::class.java)
@@ -70,12 +66,4 @@ class NetworkModule {
         .addConverterFactory(converterFactory)
         .baseUrl(baseUrl)
         .build()
-
-    @Provides
-    @Singleton
-    fun provideHttpLogger(): HttpLoggingInterceptor {
-        return HttpLoggingInterceptor().apply {
-            level = HttpLoggingInterceptor.Level.BODY
-        }
-    }
 }

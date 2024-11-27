@@ -44,7 +44,7 @@ dependencies {
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
     implementation(libs.retrofit)
-    implementation(libs.retrofit.kotlinx.serialization.converter)
+    implementation(libs.retrofit.gson.converter)
     implementation(libs.okHttp)
     implementation(libs.squareup.okhttp.logging.interceptor)
 

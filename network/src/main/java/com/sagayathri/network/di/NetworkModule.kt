@@ -1,18 +1,16 @@
 package com.sagayathri.network.di
 
+import android.util.Log
 import com.sagayathri.network.BuildConfig
 import com.sagayathri.network.api.ApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import kotlinx.serialization.json.Json
-import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Converter
 import retrofit2.Retrofit
-import retrofit2.converter.kotlinx.serialization.asConverterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module
@@ -26,44 +24,51 @@ class NetworkModule {
     }
 
     @Provides
-    fun provideApiService(retrofit: Retrofit): ApiService {
-        return retrofit.create(ApiService::class.java)
+    @Singleton
+    fun provideLoggingInterceptor(): HttpLoggingInterceptor {
+        return HttpLoggingInterceptor { message ->
+            Log.d("HttpLoggingInterceptor","ApiService $message")
+        }.apply {
+            level = if (BuildConfig.DEBUG) {
+                HttpLoggingInterceptor.Level.BODY
+            } else {
+                HttpLoggingInterceptor.Level.NONE
+            }
+        }
     }
 
     @Provides
     @Singleton
-    fun provideHttpClient(
-        loggingInterceptor: HttpLoggingInterceptor,
+    fun provideOkHttpClient(
+        loggingInterceptor: HttpLoggingInterceptor
     ): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
             .build()
     }
 
-    @Provides
     @Singleton
-    fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor {
-        val interceptor = HttpLoggingInterceptor()
-        interceptor.level = HttpLoggingInterceptor.Level.BODY
-        return interceptor
-    }
+    @Provides
+    fun providesGsonConverterFactory(): GsonConverterFactory = GsonConverterFactory.create()
 
     @Provides
     @Singleton
-    fun provideConverter(): Converter.Factory {
-        val networkJson = Json { ignoreUnknownKeys = true }
-        return networkJson.asConverterFactory("application/json".toMediaType())
-    }
-
-    @Singleton
-    @Provides
     fun provideRetrofit(
         okHttpClient: OkHttpClient,
-        converterFactory: Converter.Factory,
+        gsonConverterFactory: GsonConverterFactory,
         @JokesApi baseUrl: String,
-    ): Retrofit = Retrofit.Builder()
-        .client(okHttpClient)
-        .addConverterFactory(converterFactory)
-        .baseUrl(baseUrl)
-        .build()
+    ): Retrofit {
+        return Retrofit
+            .Builder()
+            .client(okHttpClient)
+            .addConverterFactory(gsonConverterFactory)
+            .baseUrl(baseUrl)
+            .build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideApi(
+        retrofit: Retrofit
+    ): ApiService = retrofit.create(ApiService::class.java)
 }

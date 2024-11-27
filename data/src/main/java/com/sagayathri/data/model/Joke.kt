@@ -1,7 +1,6 @@
 package com.sagayathri.data.model
 
-
-data class JokeDomain (
+data class Joke (
     val id: Int,
     val type: String,
     val setup: String,

@@ -2,12 +2,11 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.google.devtools.ksp)
-    alias(libs.plugins.hilt.gradle)
     alias(libs.plugins.compose.compiler)
 }
 
 android {
-    namespace = "com.sagayathri.home"
+    namespace = "com.sagayathri.presentation"
     compileSdk = 34
 
     defaultConfig {
@@ -61,6 +60,7 @@ dependencies {
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
+    implementation(libs.androidx.ui.tooling)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
 

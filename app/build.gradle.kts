@@ -49,16 +49,12 @@ android {
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
-            excludes += "**/*"
         }
     }
 }
 
 dependencies {
     implementation(project(":presentation"))
-    implementation(project(":data"))
-    implementation(project(":network"))
-    implementation(project(":core"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

@@ -20,10 +20,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.paint
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Color.Companion.Blue
 import androidx.compose.ui.graphics.Color.Companion.Gray
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
@@ -59,8 +60,12 @@ fun JokeDetailScreen(
         content = { paddingValues ->
             Box(modifier = Modifier
                 .padding(paddingValues)
-                .fillMaxSize(),
-                contentAlignment = Alignment.Center
+                .fillMaxSize()
+                .paint(
+                    painterResource(R.drawable.smiley),
+                    contentScale = ContentScale.FillBounds
+                ),
+                contentAlignment = Alignment.Center,
             ) {
                 Card(
                     modifier = Modifier
@@ -69,7 +74,7 @@ fun JokeDetailScreen(
                         .padding(start = 30.dp, bottom = 50.dp, end = 30.dp)
                         .border(
                             width = 2.dp,
-                            color = Blue,
+                            color = Gray,
                             shape = RoundedCornerShape(16.dp)
                         )
                         .shadow(

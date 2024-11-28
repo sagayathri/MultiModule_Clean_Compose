@@ -22,13 +22,10 @@ class JokesListViewModel @Inject constructor(
     val state: StateFlow<JokesUIState> =
         _state.asStateFlow()
 
-    init {
-        fetchJokes(10) //Number of jokes to be listed
-    }
-
     private fun getInitialState() = JokesUIState(
         isLoading = false,
         items = emptyList(),
+        isLoaded = false,
     )
 
     fun fetchJokes(limit: Int){
@@ -36,8 +33,8 @@ class JokesListViewModel @Inject constructor(
         viewModelScope.launch {
             repository.getJokes(limit = limit).collect{ result ->
                 when(result){
-                    is Result.Success ->_state.value = _state.value.copy(result.data, isLoading = false)
-                    else -> _state.value = _state.value.copy(items = emptyList(), isLoading = false)
+                    is Result.Success ->_state.value = _state.value.copy(result.data, isLoading = false, isLoaded = true)
+                    else -> _state.value = _state.value.copy(items = emptyList(), isLoading = false, isLoaded = true)
                 }
             }
         }

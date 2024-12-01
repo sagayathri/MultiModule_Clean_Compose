@@ -12,7 +12,7 @@ class JokeListMapper @Inject constructor() : Mapper<List<JokeEntity>, List<Joke>
         return from.map { mapJoke(it) }
     }
 
-    fun mapJoke(from: JokeEntity): Joke {
+    private fun mapJoke(from: JokeEntity): Joke {
         return Joke(
             id = from.id,
             type = from.type,

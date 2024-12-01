@@ -1,6 +1,6 @@
 package com.sagayathri.data.usecase
 
-import com.sagayathri.data.async.Result
+import com.sagayathri.data.async.DomainResult
 import com.sagayathri.data.async.mapDomain
 import com.sagayathri.data.mapper.JokeMapper
 import com.sagayathri.data.model.Joke
@@ -12,7 +12,7 @@ class GetJokeByIdUseCase @Inject constructor(
     private val dataMapper: JokeMapper,
 ) {
 
-    suspend operator fun invoke(jokeId: Int): Result<Joke> {
+    suspend operator fun invoke(jokeId: Int): DomainResult<Joke> {
         return repository.getJokeByID(jokeId = jokeId)
             .mapDomain(dataMapper, Throwable()) // TODO - Implement error mapper
     }

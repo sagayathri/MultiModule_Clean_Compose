@@ -1,7 +1,7 @@
 package com.sagayathri.presentation.jokeDetail
 
 import androidx.lifecycle.ViewModel
-import com.sagayathri.data.async.Result
+import com.sagayathri.data.async.DomainResult
 import com.sagayathri.data.usecase.GetJokeByIdUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -32,7 +32,7 @@ class JokeDetailsViewModel @Inject constructor(
         _state.value =  when (
             val result = getJokeUseCase(jokeId = jokeId)
         ) {
-            is Result.Success -> {
+            is DomainResult.Success -> {
                 _state.value.copy(item = result.data, isLoading = false, isLoaded = true)
             }
 

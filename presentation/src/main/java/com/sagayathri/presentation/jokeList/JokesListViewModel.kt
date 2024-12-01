@@ -1,14 +1,12 @@
 package com.sagayathri.presentation.jokeList
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.sagayathri.data.async.Result
+import com.sagayathri.data.async.DomainResult
 import com.sagayathri.data.usecase.GetJokeListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -34,7 +32,7 @@ class JokesListViewModel @Inject constructor(
         _state.value = when (
             val result = getJokesUseCase(limit = limit)
         ) {
-            is Result.Success -> {
+            is DomainResult.Success -> {
                 _state.value.copy(items = result.data, isLoading = false, isLoaded = true)
             }
 

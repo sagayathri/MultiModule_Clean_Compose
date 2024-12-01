@@ -3,14 +3,14 @@ package com.sagayathri.data.async
 import com.sagayathri.data.utils.Mapper
 import com.sagayathri.network.utils.ApiResponse
 
-sealed class Result<out T> {
+sealed class DomainResult<out T> {
     data class Success<T>(
         val data: T,
-    ): Result<T>()
+    ): DomainResult<T>()
 
     data class Failure(
         val throwable: Throwable
-    ): Result<Nothing>()
+    ): DomainResult<Nothing>()
 }
 
 fun <E, D> ApiResponse<E>.mapDomain(mapper: Mapper<E, D>, error: Throwable) = when (this) {
@@ -18,8 +18,8 @@ fun <E, D> ApiResponse<E>.mapDomain(mapper: Mapper<E, D>, error: Throwable) = wh
     is ApiResponse.Error -> mapError(error)
 }
 
-fun <E, D> ApiResponse.Success<E>.mapSuccess(responseMapper: Mapper<E, D>) = Result.Success(
+fun <E, D> ApiResponse.Success<E>.mapSuccess(responseMapper: Mapper<E, D>) = DomainResult.Success(
     responseMapper.map(data),
 )
 
-fun <E> ApiResponse.Error<E>.mapError(error: Throwable) = Result.Failure( error )
+fun <E> ApiResponse.Error<E>.mapError(error: Throwable) = DomainResult.Failure( error )

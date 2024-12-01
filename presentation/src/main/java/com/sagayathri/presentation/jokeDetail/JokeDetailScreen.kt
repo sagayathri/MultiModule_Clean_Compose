@@ -70,7 +70,7 @@ fun JokeDetailScreen(
                 Card(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(200.dp)
+                        .height(300.dp)
                         .padding(start = 30.dp, bottom = 50.dp, end = 30.dp)
                         .border(
                             width = 2.dp,

@@ -1,19 +1,17 @@
 package com.sagayathri.presentation.jokeDetail
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.sagayathri.data.async.Result
-import com.sagayathri.data.repository.JokesRepository
+import com.sagayathri.data.usecase.GetJokeByIdUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class JokeDetailsViewModel @Inject constructor(
-    private val repository: JokesRepository
+    private val getJokeUseCase: GetJokeByIdUseCase
 ) : ViewModel() {
 
     private var _state = MutableStateFlow(
@@ -28,22 +26,18 @@ class JokeDetailsViewModel @Inject constructor(
         isLoaded = false,
     )
 
-    fun fetchJokeByID(jokeId: Int){
+    suspend fun fetchJokeByID(jokeId: Int) {
         _state.value = _state.value.copy(isLoading = true)
-        viewModelScope.launch {
-            repository.getJokeByID(jokeId = jokeId).collect{ result ->
-                when(result){
-                    is Result.Success ->_state.value = _state.value.copy(
-                        item = result.data,
-                        isLoading = false,
-                        isLoaded = true
-                    )
-                    else -> _state.value = _state.value.copy(
-                        item = null,
-                        isLoading = false,
-                        isLoaded = true
-                    )
-                }
+
+        _state.value =  when (
+            val result = getJokeUseCase(jokeId = jokeId)
+        ) {
+            is Result.Success -> {
+                _state.value.copy(item = result.data, isLoading = false, isLoaded = true)
+            }
+
+            else -> {
+                _state.value.copy(item = null, isLoading = false, isLoaded = true)
             }
         }
     }

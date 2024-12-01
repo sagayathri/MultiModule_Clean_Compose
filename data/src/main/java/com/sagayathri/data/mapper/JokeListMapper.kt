@@ -1,12 +1,16 @@
 package com.sagayathri.data.mapper
 
 import com.sagayathri.data.model.Joke
+import com.sagayathri.data.utils.Mapper
 import com.sagayathri.network.model.JokeEntity
 import javax.inject.Inject
 import kotlin.collections.map
 
-class DataMapper @Inject constructor() {
-    fun JokeEntity.toModel() = Joke(id, type, setup, punchline)
+class JokeListMapper @Inject constructor() : Mapper<List<JokeEntity>, List<Joke>> {
+
+    override fun map(from: List<JokeEntity>): List<Joke> {
+        return from.map { mapJoke(it) }
+    }
 
     fun mapJoke(from: JokeEntity): Joke {
         return Joke(
@@ -15,12 +19,6 @@ class DataMapper @Inject constructor() {
             setup = from.setup,
             punchline = from.punchline,
         )
-    }
-
-    fun mapJokeList(from: List<JokeEntity>): List<Joke> {
-        return from.map {
-            it.toModel()
-        }
     }
 }
 
